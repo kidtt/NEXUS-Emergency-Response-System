@@ -1,0 +1,1171 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Track Incident | NEXUS</title>
+
+    <link rel="stylesheet" href="css/public.css">
+    <link rel="stylesheet" href="css/portal.css">
+</head>
+
+
+<body class="inner-page">
+
+
+<!-- =====================================================
+     HEADER
+===================================================== -->
+
+<header class="site-header" id="siteHeader">
+    <div class="container nav-shell">
+
+        <a href="public.html" class="brand" aria-label="NEXUS home">
+            <span class="brand-mark" aria-hidden="true">
+                <svg viewBox="0 0 32 32" fill="none">
+                    <path d="M16 3.5 27 9.8v12.4L16 28.5 5 22.2V9.8L16 3.5Z" stroke="currentColor" stroke-width="1.8"/>
+                    <path d="M16 10v12M11 13.5 21 18.5" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"/>
+                </svg>
+            </span>
+            <span class="brand-copy">
+                <strong>NEXUS</strong>
+                <small>Emergency Response Network</small>
+            </span>
+        </a>
+
+        <nav class="public-nav" id="primaryNav" aria-label="Primary navigation">
+            <a href="public.html">Home</a>
+            <a href="report.html">Report Emergency</a>
+            <a href="status.html" class="active">Track Incident</a>
+            <a href="map.html">Emergency Map</a>
+
+            <div id="authNav">
+                <a href="register.html" id="registerNav">Register</a>
+                <a href="login.html" class="nav-login" id="loginNav">Login</a>
+
+                <button id="profileNav" type="button" style="display: none;">
+                    <span class="nav-profile-dot" aria-hidden="true"></span>
+                    <span id="profileName"></span>
+                </button>
+
+                <button id="logoutNav" type="button" style="display: none;">
+                    Logout
+                </button>
+            </div>
+        </nav>
+
+        <div class="nav-actions">
+            <button class="nav-emergency" type="button" onclick="openReport()">
+                <span class="emergency-pulse" aria-hidden="true"></span>
+                Report Emergency
+            </button>
+
+            <button class="nav-toggle" id="navToggle" type="button" aria-label="Toggle navigation" aria-expanded="false">
+                <span></span><span></span><span></span>
+            </button>
+        </div>
+
+    </div>
+</header>
+
+
+<!-- =====================================================
+     MAIN
+===================================================== -->
+
+<main>
+
+    <div class="container">
+        <div class="track-shell">
+
+        <span class="eyebrow">Incident visibility</span>
+
+        <h1 class="section-title">
+            Track Emergency
+        </h1>
+
+
+        <p class="section-subtitle">
+            Enter your incident reference ID to view
+            the latest emergency response status.
+        </p>
+
+
+        <!-- =================================================
+             SEARCH
+        ================================================= -->
+
+        <div class="search-filter-wrapper">
+
+            <div class="search-box">
+
+                <input
+                    type="text"
+                    id="incidentId"
+                    placeholder="Enter incident ID e.g. NXS-000001"
+                    autocomplete="off"
+                >
+
+            </div>
+
+
+            <button
+                type="button"
+                id="trackButton"
+            >
+                Track Incident
+            </button>
+
+
+            <div
+                id="statusMessage"
+            ></div>
+
+        </div>
+
+
+        <!-- =================================================
+             RESULT
+        ================================================= -->
+
+        <div id="result">
+
+            <div class="report-card">
+
+
+                <div class="report-header">
+
+                    <div
+                        class="report-id"
+                        id="resultId"
+                    >
+                        NXS-000001
+                    </div>
+
+
+                    <span
+                        id="statusBadge"
+                        class="status-badge status-reported"
+                    >
+                        REPORTED
+                    </span>
+
+                </div>
+
+
+                <h3
+                    class="report-title"
+                    id="resultTitle"
+                >
+                    Emergency Report
+                </h3>
+
+
+                <div class="report-details">
+
+
+                    <div class="detail-row">
+
+                        <span class="detail-label">
+                            🚨 Type
+                        </span>
+
+                        <span
+                            class="detail-value"
+                            id="resultType"
+                        >
+                            -
+                        </span>
+
+                    </div>
+
+
+                    <div class="detail-row">
+
+                        <span class="detail-label">
+                            📍 Location
+                        </span>
+
+                        <span
+                            class="detail-value"
+                            id="resultLocation"
+                        >
+                            -
+                        </span>
+
+                    </div>
+
+
+                    <div class="detail-row">
+
+                        <span class="detail-label">
+                            ⚠️ Severity
+                        </span>
+
+                        <span
+                            class="detail-value"
+                            id="resultSeverity"
+                        >
+                            -
+                        </span>
+
+                    </div>
+
+
+                    <div class="detail-row">
+
+                        <span class="detail-label">
+                            📅 Reported
+                        </span>
+
+                        <span
+                            class="detail-value"
+                            id="resultDate"
+                        >
+                            -
+                        </span>
+
+                    </div>
+
+
+                    <div class="detail-row">
+
+                        <span class="detail-label">
+                            🚑 Response Team
+                        </span>
+
+                        <span
+                            class="detail-value"
+                            id="resultTeam"
+                        >
+                            Awaiting assignment
+                        </span>
+
+                    </div>
+
+                </div>
+<div class="incident-timeline">
+
+    <div class="timeline-header">
+        <span class="timeline-icon">📋</span>
+        <div>
+            <h4>Incident Timeline</h4>
+            <p>Live response progress</p>
+        </div>
+    </div>
+
+    <div class="timeline-list" id="timelineList">
+
+        <div class="timeline-item completed">
+            <div class="timeline-dot">✓</div>
+
+            <div class="timeline-content">
+                <strong>Incident Reported</strong>
+                <span id="timelineReported">
+                    Incident submitted successfully
+                </span>
+            </div>
+        </div>
+
+        <div class="timeline-item pending">
+            <div class="timeline-dot">2</div>
+
+            <div class="timeline-content">
+                <strong>AI Assessment</strong>
+                <span id="timelineAI">
+                    Processing emergency intelligence...
+                </span>
+            </div>
+        </div>
+
+        <div class="timeline-item pending">
+            <div class="timeline-dot">3</div>
+
+            <div class="timeline-content">
+                <strong>Response Team Assigned</strong>
+                <span id="timelineTeam">
+                    Awaiting response team assignment
+                </span>
+            </div>
+        </div>
+
+        <div class="timeline-item pending">
+            <div class="timeline-dot">4</div>
+
+            <div class="timeline-content">
+                <strong>Response In Progress</strong>
+                <span id="timelineProgress">
+                    Awaiting dispatch
+                </span>
+            </div>
+        </div>
+
+        <div class="timeline-item pending">
+            <div class="timeline-dot">5</div>
+
+            <div class="timeline-content">
+                <strong>Incident Resolved</strong>
+                <span id="timelineResolved">
+                    Awaiting resolution
+                </span>
+            </div>
+        </div>
+
+    </div>
+
+</div>
+
+<!-- ADD AI SECTION HERE -->
+
+<div class="ai-assessment">
+
+    <div class="ai-assessment-header">
+        <span class="ai-icon">🤖</span>
+
+        <div>
+            <h4>AI Emergency Assessment</h4>
+            <p>Automated incident intelligence</p>
+        </div>
+    </div>
+
+    <div class="ai-grid">
+
+        <div class="ai-item">
+            <span class="ai-label">Risk Level</span>
+            <strong id="aiRiskLevel">Analyzing...</strong>
+        </div>
+
+        <div class="ai-item">
+            <span class="ai-label">Priority</span>
+            <strong id="aiPriority">Analyzing...</strong>
+        </div>
+
+        <div class="ai-item">
+            <span class="ai-label">Recommended Action</span>
+            <strong id="aiAction">Analyzing...</strong>
+        </div>
+
+        <div class="ai-item">
+            <span class="ai-label">AI Confidence</span>
+            <strong id="aiConfidence">Analyzing...</strong>
+        </div>
+
+    </div>
+
+    <div class="ai-summary">
+        <span>🧠 AI Analysis</span>
+        <p id="aiSummary">
+            NEXUS intelligence is analyzing this incident...
+        </p>
+    </div>
+
+</div>
+
+                <!-- DESCRIPTION -->
+
+                <div class="description-box">
+
+                    <strong>
+                        📝 Description
+                    </strong>
+
+                    <p id="resultDescription">
+                        -
+                    </p>
+
+                </div>
+
+
+            </div>
+
+        </div>
+
+
+        <!-- =================================================
+             NOT FOUND
+        ================================================= -->
+
+        <div id="notFound">
+
+            <div class="notice-icon">
+                ⚠️
+            </div>
+
+
+            <div>
+
+                <h3>
+                    Incident Not Found
+                </h3>
+
+
+                <p>
+                    We could not find an incident with
+                    that ID. Please check the reference ID
+                    and try again.
+                </p>
+
+            </div>
+
+        </div>
+
+        </div>
+    </div>
+
+</main>
+
+
+<!-- =====================================================
+     FOOTER
+===================================================== -->
+
+<footer class="public-footer">
+
+    <div class="container">
+
+        <div class="footer-bottom">
+
+            © 2026 NEXUS.
+            Emergency Response & Disaster Management Platform.
+
+        </div>
+
+    </div>
+
+</footer>
+
+
+<!-- =====================================================
+     JAVASCRIPT
+===================================================== -->
+
+
+<script>
+
+document.addEventListener(
+    "DOMContentLoaded",
+    function () {
+
+
+        const incidentInput =
+            document.getElementById(
+                "incidentId"
+            );
+
+
+        const trackButton =
+            document.getElementById(
+                "trackButton"
+            );
+
+
+        const result =
+            document.getElementById(
+                "result"
+            );
+
+
+        const notFound =
+            document.getElementById(
+                "notFound"
+            );
+
+
+        const statusMessage =
+            document.getElementById(
+                "statusMessage"
+            );
+
+
+        /* =================================================
+           TOKEN
+        ================================================= */
+
+        function getToken() {
+
+            return (
+                localStorage.getItem("nexus_token") ||
+                sessionStorage.getItem("nexus_token")
+            );
+
+        }
+
+
+        /* =================================================
+           STATUS CLASS
+        ================================================= */
+
+        function getStatusClass(status) {
+
+            return status
+                .toLowerCase()
+                .replace(/_/g, "-");
+
+        }
+
+
+        /* =================================================
+           FORMAT DATE
+        ================================================= */
+
+        function formatDate(date) {
+
+            if (!date) {
+                return "-";
+            }
+
+            return new Date(date)
+                .toLocaleString();
+
+        }
+
+
+        /* =================================================
+           TRACK INCIDENT
+        ================================================= */
+
+        async function trackIncident() {
+
+
+            const rawId =
+                incidentInput.value.trim();
+
+
+            if (!rawId) {
+
+                statusMessage.textContent =
+                    "Please enter an incident ID.";
+
+                statusMessage.style.color =
+                    "#fee2e2";
+
+                return;
+
+            }
+
+
+            const token =
+                getToken();
+
+
+            /* =============================================
+               LOGIN CHECK
+            ============================================= */
+
+            if (!token) {
+
+                alert(
+                    "Please login before tracking an incident."
+                );
+
+                window.location.href =
+                    "login.html";
+
+                return;
+
+            }
+
+
+            /* =============================================
+               EXTRACT DATABASE ID
+               
+               NXS-000001 → 1
+            ============================================= */
+
+            let databaseId =
+                rawId;
+
+
+            const referenceMatch =
+                rawId.match(
+                    /^NXS-(\d+)$/
+                );
+
+
+            if (referenceMatch) {
+
+                databaseId =
+                    parseInt(
+                        referenceMatch[1],
+                        10
+                    );
+
+            }
+
+
+            /* =============================================
+               LOADING
+            ============================================= */
+
+            trackButton.disabled =
+                true;
+
+            trackButton.textContent =
+                "🔄 Loading...";
+
+            statusMessage.textContent =
+                "";
+
+            result.style.display =
+                "none";
+
+            notFound.style.display =
+                "none";
+
+
+            /* =============================================
+               BACKEND REQUEST
+            ============================================= */
+
+            try {
+
+
+                const response =
+                    await fetch(
+                        `http://localhost:5000/api/incidents/${databaseId}`,
+                        {
+
+                            method:
+                                "GET",
+
+                            headers: {
+
+                                "Authorization":
+                                    `Bearer ${token}`,
+
+                                "Content-Type":
+                                    "application/json"
+
+                            }
+
+                        }
+                    );
+
+
+                const data =
+                    await response.json();
+
+
+                console.log(
+                    "Incident response:",
+                    data
+                );
+
+
+                /* =========================================
+                   SESSION EXPIRED
+                ========================================= */
+
+                if (
+                    response.status === 401
+                ) {
+
+                    localStorage.removeItem(
+                        "nexus_token"
+                    );
+
+                    sessionStorage.removeItem(
+                        "nexus_token"
+                    );
+
+                    localStorage.removeItem(
+                        "nexus_user"
+                    );
+
+                    alert(
+                        "Your session has expired. Please login again."
+                    );
+
+                    window.location.href =
+                        "login.html";
+
+                    return;
+
+                }
+
+
+                /* =========================================
+                   NOT FOUND
+                ========================================= */
+
+                if (
+                    response.status === 404 ||
+                    !response.ok ||
+                    !data.success
+                ) {
+
+                    result.style.display =
+                        "none";
+
+                    notFound.style.display =
+                        "flex";
+
+                    return;
+
+                }
+
+
+                /* =========================================
+                   INCIDENT
+                ========================================= */
+
+                const incident =
+                    data.incident;
+/* =========================================
+   LOAD INCIDENT TIMELINE
+/* =========================================
+   LOAD INCIDENT TIMELINE
+========================================= */
+
+try {
+
+    const timelineResponse =
+        await fetch(
+            `http://localhost:5000/api/incidents/${databaseId}/timeline`,
+            {
+                method: "GET",
+                headers: {
+                    "Authorization": `Bearer ${token}`,
+                    "Content-Type": "application/json"
+                }
+            }
+        );
+
+    const timelineData =
+        await timelineResponse.json();
+
+    console.log(
+        "Timeline response:",
+        timelineData
+    );
+
+    const timelineList =
+        document.getElementById("timelineList");
+
+    if (
+        timelineList &&
+        timelineData.success
+    ) {
+
+        const timeline =
+            timelineData.timeline || [];
+
+        timelineList.innerHTML = "";
+
+        const statusOrder = [
+            "REPORTED",
+            "VERIFIED",
+            "DISPATCHED",
+            "IN_PROGRESS",
+            "RESOLVED",
+            "CLOSED"
+        ];
+
+        const currentStatus =
+            incident.status || "REPORTED";
+
+        const currentIndex =
+            statusOrder.indexOf(currentStatus);
+
+        /* =====================================
+           REAL EVENTS
+        ===================================== */
+
+        timeline.forEach(event => {
+
+            const item =
+                document.createElement("div");
+
+            item.className =
+    event.status === "AI_ASSESSMENT"
+        ? "timeline-item ai-event completed"
+        : "timeline-item completed";
+            item.innerHTML = `
+                <div class="timeline-dot">
+                    ✓
+                </div>
+
+                <div class="timeline-content">
+
+                    <strong>
+                        ${event.status === "AI_ASSESSMENT"
+    ? "AI Assessment Completed"
+    : event.status
+        ? event.status.replace(/_/g, " ")
+        : "Incident Update"}
+                    </strong>
+
+                    <span>
+                        ${event.message || ""}
+                    </span>
+
+                    <span>
+                        ${event.created_at
+                            ? formatDate(event.created_at)
+                            : ""}
+                    </span>
+
+                </div>
+            `;
+
+            timelineList.appendChild(item);
+
+        });
+
+        /* =====================================
+           FUTURE STATUS STEPS
+        ===================================== */
+
+        const futureStatuses = [
+            {
+                status: "VERIFIED",
+                label: "Incident Verified",
+                message: "Emergency report awaiting verification"
+            },
+            {
+                status: "DISPATCHED",
+                label: "Response Team Dispatched",
+                message: "Awaiting response team dispatch"
+            },
+            {
+                status: "IN_PROGRESS",
+                label: "Response In Progress",
+                message: "Emergency response is underway"
+            },
+            {
+                status: "RESOLVED",
+                label: "Incident Resolved",
+                message: "Awaiting incident resolution"
+            },
+            {
+                status: "CLOSED",
+                label: "Incident Closed",
+                message: "Awaiting final closure"
+            }
+        ];
+
+        futureStatuses.forEach((step, index) => {
+
+            const stepIndex =
+                statusOrder.indexOf(step.status);
+
+            if (stepIndex <= currentIndex) {
+                return;
+            }
+
+            const item =
+                document.createElement("div");
+
+            item.className =
+                "timeline-item pending";
+
+            item.innerHTML = `
+                <div class="timeline-dot">
+                    ${stepIndex + 1}
+                </div>
+
+                <div class="timeline-content">
+
+                    <strong>
+                        ${step.label}
+                    </strong>
+
+                    <span>
+                        ${step.message}
+                    </span>
+
+                </div>
+            `;
+
+            timelineList.appendChild(item);
+
+        });
+
+    }
+
+} catch (timelineError) {
+
+    console.error(
+        "Timeline loading error:",
+        timelineError
+    );
+
+}
+                result.style.display =
+                    "block";
+
+
+                notFound.style.display =
+                    "none";
+
+
+                /* =========================================
+                   BASIC DATA
+                ========================================= */
+
+                document.getElementById(
+                    "resultId"
+                ).textContent =
+                    `NXS-${String(
+                        incident.id
+                    ).padStart(6, "0")}`;
+
+
+                document.getElementById(
+                    "resultTitle"
+                ).textContent =
+                    incident.title ||
+                    "Emergency Report";
+
+
+                document.getElementById(
+                    "resultType"
+                ).textContent =
+                    incident.incident_type ||
+                    "-";
+
+
+                document.getElementById(
+                    "resultLocation"
+                ).textContent =
+                    incident.location_name ||
+                    (
+                        incident.latitude &&
+                        incident.longitude
+                            ? `${incident.latitude}, ${incident.longitude}`
+                            : "Location not provided"
+                    );
+
+
+                document.getElementById(
+                    "resultSeverity"
+                ).textContent =
+                    incident.severity ||
+                    "-";
+
+
+                document.getElementById(
+                    "resultDate"
+                ).textContent =
+                    formatDate(
+                        incident.reported_at
+                    );
+
+
+                document.getElementById(
+                    "resultDescription"
+                ).textContent =
+                    incident.description ||
+                    "No description provided.";
+
+
+                /* =========================================
+                   STATUS
+                ========================================= */
+
+                const badge =
+                    document.getElementById(
+                        "statusBadge"
+                    );
+
+
+                const status =
+                    incident.status ||
+                    "REPORTED";
+
+
+                badge.textContent =
+                    status.replace(
+                        /_/g,
+                        " "
+                    );
+
+
+                badge.className =
+                    "status-badge";
+
+
+                badge.classList.add(
+                    `status-${getStatusClass(status)}`
+                );
+
+                /* =========================================
+                   AI EMERGENCY INTELLIGENCE
+                ========================================= */
+
+                const intelligence =
+                    data.intelligence || {};
+
+                const ai =
+                    intelligence.rule_based_ai || {};
+
+                const ml =
+                    intelligence.machine_learning || {};
+
+                const aiRisk =
+                    ai.risk_level ||
+                    ai.risk ||
+                    ml.risk_level ||
+                    "Analyzing...";
+
+                const aiPriority =
+                    ai.priority ||
+                    ml.priority ||
+                    incident.severity ||
+                    "Analyzing...";
+
+                const aiAction =
+                    ai.recommended_action ||
+                    ai.recommendation ||
+                    ml.recommended_action ||
+                    "Response assessment pending";
+
+                const confidenceValue =
+    ai.confidence_score ??
+    ml.confidence_score ??
+    ml.confidence;
+
+const aiConfidence =
+    confidenceValue !== undefined &&
+    confidenceValue !== null
+        ? `${Math.round(Number(confidenceValue))}%`
+        : "Analyzing...";
+
+                const aiSummary =
+                    ai.analysis ||
+                    ai.summary ||
+                    ai.message ||
+                    ml.prediction ||
+                    "NEXUS intelligence is analyzing this incident.";
+/* =========================================
+   ADD AI ASSESSMENT TO TIMELINE
+========================================= */
+
+
+                document.getElementById(
+                    "aiRiskLevel"
+                ).textContent =
+                    aiRisk;
+
+                document.getElementById(
+                    "aiPriority"
+                ).textContent =
+                    aiPriority;
+
+                document.getElementById(
+                    "aiAction"
+                ).textContent =
+                    aiAction;
+
+                document.getElementById(
+                    "aiConfidence"
+                ).textContent =
+                    aiConfidence;
+
+                document.getElementById(
+                    "aiSummary"
+                ).textContent =
+                    aiSummary;
+                /* =========================================
+                   TEAM
+                ========================================= */
+
+                document.getElementById(
+                    "resultTeam"
+                ).textContent =
+                    "Response team assignment pending";
+
+
+                statusMessage.textContent =
+                    "✓ Incident information loaded successfully.";
+
+                statusMessage.style.color =
+                    "#dcfce7";
+
+
+            }
+
+            catch (error) {
+
+
+                console.error(
+                    "Track incident error:",
+                    error
+                );
+
+
+                statusMessage.textContent =
+                    "Unable to connect to the NEXUS server.";
+
+                statusMessage.style.color =
+                    "#fee2e2";
+
+            }
+
+
+            finally {
+
+                trackButton.disabled =
+                    false;
+
+                trackButton.textContent =
+                    "🔎 Track Incident";
+
+            }
+
+        }
+
+
+        /* =================================================
+           BUTTON
+        ================================================= */
+
+        trackButton.addEventListener(
+            "click",
+            trackIncident
+        );
+
+
+        /* =================================================
+           ENTER KEY
+        ================================================= */
+
+        incidentInput.addEventListener(
+            "keydown",
+            function (event) {
+
+                if (
+                    event.key === "Enter"
+                ) {
+
+                    trackIncident();
+
+                }
+
+            }
+        );
+
+
+    }
+
+);
+
+</script>
+<script>
+document.addEventListener("DOMContentLoaded", function () {
+    const token =
+        localStorage.getItem("nexus_token") ||
+        sessionStorage.getItem("nexus_token");
+
+    const user =
+        localStorage.getItem("nexus_user");
+
+    if (!token || !user) {
+        window.location.replace("login.html");
+    }
+});
+</script>
+    <script src="js/public.js"></script>
+</body>
+</html>
