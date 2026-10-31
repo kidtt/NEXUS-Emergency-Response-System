@@ -1,0 +1,1187 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Emergency Map | NEXUS</title>
+
+    <link rel="stylesheet" href="css/public.css">
+    <link rel="stylesheet" href="css/portal.css">
+
+</head>
+
+
+<body class="inner-page">
+
+
+<!-- =====================================================
+     HEADER
+===================================================== -->
+
+<header class="site-header" id="siteHeader">
+    <div class="container nav-shell">
+
+        <a href="public.html" class="brand" aria-label="NEXUS home">
+            <span class="brand-mark" aria-hidden="true">
+                <svg viewBox="0 0 32 32" fill="none">
+                    <path d="M16 3.5 27 9.8v12.4L16 28.5 5 22.2V9.8L16 3.5Z" stroke="currentColor" stroke-width="1.8"/>
+                    <path d="M16 10v12M11 13.5 21 18.5" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"/>
+                </svg>
+            </span>
+            <span class="brand-copy">
+                <strong>NEXUS</strong>
+                <small>Emergency Response Network</small>
+            </span>
+        </a>
+
+        <nav class="public-nav" id="primaryNav" aria-label="Primary navigation">
+            <a href="public.html">Home</a>
+            <a href="report.html">Report Emergency</a>
+            <a href="status.html">Track Incident</a>
+            <a href="map.html" class="active">Emergency Map</a>
+
+            <div id="authNav">
+                <a href="register.html" id="registerNav">Register</a>
+                <a href="login.html" class="nav-login" id="loginNav">Login</a>
+
+                <button id="profileNav" type="button" style="display: none;">
+                    <span class="nav-profile-dot" aria-hidden="true"></span>
+                    <span id="profileName"></span>
+                </button>
+
+                <button id="logoutNav" type="button" style="display: none;">
+                    Logout
+                </button>
+            </div>
+        </nav>
+
+        <div class="nav-actions">
+            <button class="nav-emergency" type="button" onclick="openReport()">
+                <span class="emergency-pulse" aria-hidden="true"></span>
+                Report Emergency
+            </button>
+
+            <button class="nav-toggle" id="navToggle" type="button" aria-label="Toggle navigation" aria-expanded="false">
+                <span></span><span></span><span></span>
+            </button>
+        </div>
+
+    </div>
+</header>
+
+
+<!-- =====================================================
+     MAIN
+===================================================== -->
+
+<main>
+
+    <div class="container">
+        <div class="map-shell">
+
+        <span class="eyebrow">Live incident geography</span>
+
+        <h1 class="section-title">
+            Emergency Response Map
+        </h1>
+
+
+        <p class="section-subtitle">
+            Real-time visualization of reported emergencies
+            across the region
+        </p>
+
+
+        <!-- =================================================
+             MAP
+        ================================================= -->
+
+        <div class="map-wrapper">
+
+
+            <div
+                class="map-area"
+                id="mapArea"
+            >
+
+                <div class="map-grid"></div>
+
+
+                <div
+                    id="incidentMarkers"
+                ></div>
+
+
+                <div
+                    class="map-message"
+                    id="mapMessage"
+                >
+
+                    <div class="map-message-icon">
+                        🗺️
+                    </div>
+
+                    <h3>
+                        Loading Emergency Data
+                    </h3>
+
+                    <p>
+                        Connecting to the NEXUS emergency network...
+                    </p>
+
+                </div>
+
+
+                <div
+                    class="incident-popup"
+                    id="incidentPopup"
+                >
+
+                    <div class="popup-header">
+
+                        <div
+                            class="popup-title"
+                            id="popupTitle"
+                        >
+                            Emergency
+                        </div>
+
+                        <button
+                            class="popup-close"
+                            id="popupClose"
+                        >
+                            ×
+                        </button>
+
+                    </div>
+
+
+                    <div class="popup-row">
+
+                        <span class="popup-label">
+                            ID
+                        </span>
+
+                        <span
+                            class="popup-value"
+                            id="popupId"
+                        >
+                            -
+                        </span>
+
+                    </div>
+
+
+                    <div class="popup-row">
+
+                        <span class="popup-label">
+                            Type
+                        </span>
+
+                        <span
+                            class="popup-value"
+                            id="popupType"
+                        >
+                            -
+                        </span>
+
+                    </div>
+
+
+                    <div class="popup-row">
+
+                        <span class="popup-label">
+                            Location
+                        </span>
+
+                        <span
+                            class="popup-value"
+                            id="popupLocation"
+                        >
+                            -
+                        </span>
+
+                    </div>
+
+
+                    <div class="popup-row">
+
+                        <span class="popup-label">
+                            Severity
+                        </span>
+
+                        <span
+                            class="popup-value"
+                            id="popupSeverity"
+                        >
+                            -
+                        </span>
+
+                    </div>
+
+
+                    <div class="popup-row">
+
+                        <span class="popup-label">
+                            Status
+                        </span>
+
+                        <span
+                            class="popup-value"
+                            id="popupStatus"
+                        >
+                            -
+                        </span>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+
+            <!-- =================================================
+                 CONTROLS
+            ================================================= -->
+
+            <div class="map-controls">
+
+                <div class="controls-grid">
+
+
+                    <div>
+
+                        <label class="control-label">
+                            🔍 Search Location
+                        </label>
+
+                        <input
+                            type="text"
+                            id="locationSearch"
+                            class="control-input"
+                            placeholder="Search location..."
+                        >
+
+                    </div>
+
+
+                    <div>
+
+                        <label class="control-label">
+                            🏷️ Filter by Type
+                        </label>
+
+                        <select
+                            id="typeFilter"
+                            class="control-select"
+                        >
+
+                            <option value="">
+                                All Emergency Types
+                            </option>
+
+                            <option value="FIRE">
+                                🔥 Fire
+                            </option>
+
+                            <option value="FLOOD">
+                                💧 Flood
+                            </option>
+
+                            <option value="ACCIDENT">
+                                🚗 Accident
+                            </option>
+
+                            <option value="MEDICAL">
+                                🏥 Medical
+                            </option>
+
+                            <option value="SECURITY">
+                                🛡️ Security
+                            </option>
+
+                            <option value="EARTHQUAKE">
+                                🌍 Earthquake
+                            </option>
+
+                            <option value="LANDSLIDE">
+                                ⛰️ Landslide
+                            </option>
+
+                            <option value="OTHER">
+                                📍 Other
+                            </option>
+
+                        </select>
+
+                    </div>
+
+
+                    <button
+                        id="refreshMap"
+                        type="button"
+                    >
+                        🔄 Refresh
+                    </button>
+
+
+                </div>
+
+            </div>
+
+        </div>
+
+
+        <!-- =================================================
+             LEGEND
+        ================================================= -->
+
+        <div class="legend">
+
+            <h3
+                style="
+                    font-size: 18px;
+                    font-weight: 900;
+                    color: #111827;
+                    margin-bottom: 20px;
+                "
+            >
+                Map Legend
+            </h3>
+
+
+            <div class="legend-grid">
+
+
+                <div class="legend-item">
+
+                    <div
+                        class="legend-icon legend-active"
+                    >
+                        🚨
+                    </div>
+
+                    <span>
+                        Active Emergency
+                    </span>
+
+                </div>
+
+
+                <div class="legend-item">
+
+                    <div
+                        class="legend-icon legend-team"
+                    >
+                        🚑
+                    </div>
+
+                    <span>
+                        Response Team
+                    </span>
+
+                </div>
+
+
+                <div class="legend-item">
+
+                    <div
+                        class="legend-icon legend-resolved"
+                    >
+                        ✅
+                    </div>
+
+                    <span>
+                        Resolved
+                    </span>
+
+                </div>
+
+
+                <div class="legend-item">
+
+                    <div
+                        class="legend-icon legend-progress"
+                    >
+                        ⚠️
+                    </div>
+
+                    <span>
+                        In Progress
+                    </span>
+
+                </div>
+
+
+            </div>
+
+        </div>
+
+        </div>
+    </div>
+
+</main>
+
+
+<!-- =====================================================
+     FOOTER
+===================================================== -->
+
+<footer class="public-footer">
+
+    <div class="container">
+
+        <div class="footer-content">
+
+            <div class="footer-logo">
+                ✚ NEXUS
+            </div>
+
+            <div class="footer-links">
+
+                <a href="#">
+                    About
+                </a>
+
+                <a href="#">
+                    Contact
+                </a>
+
+                <a href="#">
+                    Privacy
+                </a>
+
+                <a href="#">
+                    Terms
+                </a>
+
+            </div>
+
+        </div>
+
+
+        <div class="footer-bottom">
+
+            © 2026 NEXUS.
+            Emergency Response & Disaster Management Platform.
+
+        </div>
+
+    </div>
+
+</footer>
+
+
+<!-- =====================================================
+     JAVASCRIPT
+===================================================== -->
+
+
+<script>
+
+document.addEventListener(
+    "DOMContentLoaded",
+    function () {
+
+
+        const mapArea =
+            document.getElementById(
+                "mapArea"
+            );
+
+
+        const markersContainer =
+            document.getElementById(
+                "incidentMarkers"
+            );
+
+
+        const mapMessage =
+            document.getElementById(
+                "mapMessage"
+            );
+
+
+        const locationSearch =
+            document.getElementById(
+                "locationSearch"
+            );
+
+
+        const typeFilter =
+            document.getElementById(
+                "typeFilter"
+            );
+
+
+        const refreshButton =
+            document.getElementById(
+                "refreshMap"
+            );
+
+
+        const popup =
+            document.getElementById(
+                "incidentPopup"
+            );
+
+
+        const popupClose =
+            document.getElementById(
+                "popupClose"
+            );
+
+
+        let incidents = [];
+
+
+        /* =================================================
+           TOKEN
+        ================================================= */
+
+        function getToken() {
+
+            return (
+                localStorage.getItem("nexus_token") ||
+                sessionStorage.getItem("nexus_token")
+            );
+
+        }
+
+
+        /* =================================================
+           ICON
+        ================================================= */
+
+        function getIncidentIcon(type) {
+
+            const icons = {
+
+                FIRE: "🔥",
+                FLOOD: "💧",
+                ACCIDENT: "🚗",
+                MEDICAL: "🏥",
+                SECURITY: "🛡️",
+                EARTHQUAKE: "🌍",
+                LANDSLIDE: "⛰️",
+                OTHER: "📍"
+
+            };
+
+            return icons[type] || "🚨";
+
+        }
+
+
+        /* =================================================
+           MARKER CLASS
+        ================================================= */
+
+        function getMarkerClass(status) {
+
+            if (
+                status === "RESOLVED" ||
+                status === "CLOSED"
+            ) {
+
+                return "marker-resolved";
+
+            }
+
+
+            if (
+                status === "DISPATCHED" ||
+                status === "IN_PROGRESS"
+            ) {
+
+                return "marker-progress";
+
+            }
+
+
+            return "marker-active";
+
+        }
+
+
+        /* =================================================
+           SHOW POPUP
+        ================================================= */
+
+        function showPopup(
+            incident,
+            x,
+            y
+        ) {
+
+
+            document.getElementById(
+                "popupTitle"
+            ).textContent =
+                incident.title ||
+                "Emergency";
+
+
+            document.getElementById(
+                "popupId"
+            ).textContent =
+                `NXS-${String(
+                    incident.id
+                ).padStart(6, "0")}`;
+
+
+            document.getElementById(
+                "popupType"
+            ).textContent =
+                incident.incident_type ||
+                "-";
+
+
+            document.getElementById(
+                "popupLocation"
+            ).textContent =
+                incident.location_name ||
+                "Coordinates available";
+
+
+            document.getElementById(
+                "popupSeverity"
+            ).textContent =
+                incident.severity ||
+                "-";
+
+
+            document.getElementById(
+                "popupStatus"
+            ).textContent =
+                incident.status ||
+                "-";
+
+
+            popup.style.left =
+                `${Math.min(
+                    Math.max(x, 150),
+                    mapArea.clientWidth - 150
+                )}px`;
+
+
+            popup.style.top =
+                `${Math.min(
+                    Math.max(y, 160),
+                    mapArea.clientHeight - 180
+                )}px`;
+
+
+            popup.style.transform =
+                "translate(-50%, -50%)";
+
+
+            popup.classList.add(
+                "show"
+            );
+
+        }
+
+
+        /* =================================================
+           RENDER MARKERS
+        ================================================= */
+
+        function renderMarkers() {
+
+
+            markersContainer.innerHTML =
+                "";
+
+
+            popup.classList.remove(
+                "show"
+            );
+
+
+            const search =
+                locationSearch.value
+                    .trim()
+                    .toLowerCase();
+
+
+            const selectedType =
+                typeFilter.value;
+
+
+            const filtered =
+                incidents.filter(
+                    incident => {
+
+
+                        const location =
+                            (
+                                incident.location_name ||
+                                ""
+                            ).toLowerCase();
+
+
+                        const type =
+                            incident.incident_type ||
+                            "";
+
+
+                        const matchesSearch =
+                            !search ||
+                            location.includes(
+                                search
+                            );
+
+
+                        const matchesType =
+                            !selectedType ||
+                            type === selectedType;
+
+
+                        return (
+                            matchesSearch &&
+                            matchesType
+                        );
+
+                    }
+                );
+
+
+            if (
+                filtered.length === 0
+            ) {
+
+                mapMessage.style.display =
+                    "block";
+
+
+                mapMessage.innerHTML = `
+
+                    <div class="map-message-icon">
+                        📍
+                    </div>
+
+                    <h3>
+                        No Emergencies Found
+                    </h3>
+
+                    <p>
+                        There are no incidents matching
+                        your current filters.
+                    </p>
+
+                `;
+
+                return;
+
+            }
+
+
+            mapMessage.style.display =
+                "none";
+
+
+            /*
+             * Convert geographic coordinates
+             * into positions inside our visual map.
+             *
+             * Ethiopia approximate bounds:
+             *
+             * latitude:
+             * 3° → 15°
+             *
+             * longitude:
+             * 33° → 48°
+             */
+
+            filtered.forEach(
+                (incident, index) => {
+
+
+                    if (
+                        incident.latitude === null ||
+                        incident.longitude === null ||
+                        incident.latitude === undefined ||
+                        incident.longitude === undefined
+                    ) {
+
+                        return;
+
+                    }
+
+
+                    const latitude =
+                        parseFloat(
+                            incident.latitude
+                        );
+
+
+                    const longitude =
+                        parseFloat(
+                            incident.longitude
+                        );
+
+
+                    if (
+                        Number.isNaN(latitude) ||
+                        Number.isNaN(longitude)
+                    ) {
+
+                        return;
+
+                    }
+
+
+                    let x =
+                        (
+                            (longitude - 33) /
+                            (48 - 33)
+                        ) * 100;
+
+
+                    let y =
+                        (
+                            (15 - latitude) /
+                            (15 - 3)
+                        ) * 100;
+
+
+                    x =
+                        Math.max(
+                            5,
+                            Math.min(
+                                95,
+                                x
+                            )
+                        );
+
+
+                    y =
+                        Math.max(
+                            5,
+                            Math.min(
+                                95,
+                                y
+                            )
+                        );
+
+
+                    const marker =
+                        document.createElement(
+                            "div"
+                        );
+
+
+                    marker.className =
+                        `incident-marker ${getMarkerClass(
+                            incident.status
+                        )}`;
+
+
+                    marker.style.left =
+                        `${x}%`;
+
+
+                    marker.style.top =
+                        `${y}%`;
+
+
+                    marker.textContent =
+                        getIncidentIcon(
+                            incident.incident_type
+                        );
+
+
+                    marker.title =
+                        incident.title ||
+                        "Emergency";
+
+
+                    marker.addEventListener(
+                        "click",
+                        function (event) {
+
+                            event.stopPropagation();
+
+
+                            const rect =
+                                mapArea.getBoundingClientRect();
+
+
+                            showPopup(
+                                incident,
+                                event.clientX -
+                                    rect.left,
+
+                                event.clientY -
+                                    rect.top
+                            );
+
+                        }
+                    );
+
+
+                    markersContainer.appendChild(
+                        marker
+                    );
+
+                }
+            );
+
+        }
+
+
+        /* =================================================
+           LOAD INCIDENTS
+        ================================================= */
+
+        async function loadIncidents() {
+
+
+            const token =
+                getToken();
+
+
+            if (!token) {
+
+                mapMessage.style.display =
+                    "block";
+
+
+                mapMessage.innerHTML = `
+
+                    <div class="map-message-icon">
+                        🔐
+                    </div>
+
+                    <h3>
+                        Login Required
+                    </h3>
+
+                    <p>
+                        Please login to view emergency incidents.
+                    </p>
+
+                `;
+
+                return;
+
+            }
+
+
+            refreshButton.disabled =
+                true;
+
+            refreshButton.textContent =
+                "🔄 Loading...";
+
+
+            try {
+
+
+                const response =
+                    await fetch(
+                        "http://localhost:5000/api/incidents",
+                        {
+
+                            method:
+                                "GET",
+
+                            headers: {
+
+                                "Authorization":
+                                    `Bearer ${token}`,
+
+                                "Content-Type":
+                                    "application/json"
+
+                            }
+
+                        }
+                    );
+
+
+                const data =
+                    await response.json();
+
+
+                console.log(
+                    "Incidents response:",
+                    data
+                );
+
+
+                if (
+                    response.status === 401
+                ) {
+
+                    localStorage.removeItem(
+                        "nexus_token"
+                    );
+
+                    sessionStorage.removeItem(
+                        "nexus_token"
+                    );
+
+                    localStorage.removeItem(
+                        "nexus_user"
+                    );
+
+                    alert(
+                        "Your session has expired. Please login again."
+                    );
+
+                    window.location.href =
+                        "login.html";
+
+                    return;
+
+                }
+
+
+                if (
+                    !response.ok ||
+                    !data.success
+                ) {
+
+                    throw new Error(
+                        data.message ||
+                        "Failed to load incidents."
+                    );
+
+                }
+
+
+                incidents =
+                    Array.isArray(
+                        data.incidents
+                    )
+                        ? data.incidents
+                        : [];
+
+
+                renderMarkers();
+
+
+            }
+            catch (error) {
+
+
+                console.error(
+                    "Emergency map error:",
+                    error
+                );
+
+
+                mapMessage.style.display =
+                    "block";
+
+
+                mapMessage.innerHTML = `
+
+                    <div class="map-message-icon">
+                        ⚠️
+                    </div>
+
+                    <h3>
+                        Unable to Load Emergency Data
+                    </h3>
+
+                    <p>
+                        Could not connect to the NEXUS emergency network.
+                    </p>
+
+                `;
+
+            }
+            finally {
+
+                refreshButton.disabled =
+                    false;
+
+                refreshButton.textContent =
+                    "🔄 Refresh";
+
+            }
+
+        }
+
+
+        /* =================================================
+           FILTERS
+        ================================================= */
+
+        locationSearch.addEventListener(
+            "input",
+            renderMarkers
+        );
+
+
+        typeFilter.addEventListener(
+            "change",
+            renderMarkers
+        );
+
+
+        refreshButton.addEventListener(
+            "click",
+            loadIncidents
+        );
+
+
+        popupClose.addEventListener(
+            "click",
+            function () {
+
+                popup.classList.remove(
+                    "show"
+                );
+
+            }
+        );
+
+
+        mapArea.addEventListener(
+            "click",
+            function () {
+
+                popup.classList.remove(
+                    "show"
+                );
+
+            }
+        );
+
+
+        /* =================================================
+           INITIAL LOAD
+        ================================================= */
+
+        loadIncidents();
+
+    }
+
+);
+
+</script>
+<script>
+document.addEventListener("DOMContentLoaded", function () {
+    const token =
+        localStorage.getItem("nexus_token") ||
+        sessionStorage.getItem("nexus_token");
+
+    const user =
+        localStorage.getItem("nexus_user");
+
+    if (!token || !user) {
+        window.location.replace("login.html");
+    }
+});
+</script>
+
+    <script src="js/public.js"></script>
+</body>
+
+</html>

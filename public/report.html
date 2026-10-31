@@ -1,0 +1,421 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Report Emergency | NEXUS</title>
+    <meta name="description" content="Report an emergency to the NEXUS response network. Share the incident type, severity, location, and details so responders can act quickly.">
+
+    <link rel="stylesheet" href="css/public.css">
+    <link rel="stylesheet" href="css/portal.css">
+</head>
+
+<body class="inner-page">
+
+    <header class="site-header" id="siteHeader">
+        <div class="container nav-shell">
+
+            <a href="public.html" class="brand" aria-label="NEXUS home">
+                <span class="brand-mark" aria-hidden="true">
+                    <svg viewBox="0 0 32 32" fill="none">
+                        <path d="M16 3.5 27 9.8v12.4L16 28.5 5 22.2V9.8L16 3.5Z" stroke="currentColor" stroke-width="1.8"/>
+                        <path d="M16 10v12M11 13.5 21 18.5" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"/>
+                    </svg>
+                </span>
+                <span class="brand-copy">
+                    <strong>NEXUS</strong>
+                    <small>Emergency Response Network</small>
+                </span>
+            </a>
+
+            <nav class="public-nav" id="primaryNav" aria-label="Primary navigation">
+                <a href="public.html">Home</a>
+                <a href="report.html" class="active">Report Emergency</a>
+                <a href="status.html">Track Incident</a>
+                <a href="map.html">Emergency Map</a>
+
+                <div id="authNav">
+                    <a href="register.html" id="registerNav">Register</a>
+                    <a href="login.html" class="nav-login" id="loginNav">Login</a>
+
+                    <button id="profileNav" type="button" style="display: none;">
+                        <span class="nav-profile-dot" aria-hidden="true"></span>
+                        <span id="profileName"></span>
+                    </button>
+
+                    <button id="logoutNav" type="button" style="display: none;">
+                        Logout
+                    </button>
+                </div>
+            </nav>
+
+            <div class="nav-actions">
+                <button class="nav-emergency" type="button" onclick="openReport()">
+                    <span class="emergency-pulse" aria-hidden="true"></span>
+                    Report Emergency
+                </button>
+
+                <button class="nav-toggle" id="navToggle" type="button" aria-label="Toggle navigation" aria-expanded="false">
+                    <span></span><span></span><span></span>
+                </button>
+            </div>
+
+        </div>
+    </header>
+
+
+    <main>
+        <div class="container">
+            <div class="report-page-shell">
+
+                <span class="eyebrow">Emergency intake</span>
+
+                <h1 class="section-title">Report an Emergency</h1>
+
+                <p class="section-subtitle">
+                    Share clear details so the response network can assess the incident,
+                    prioritise resources, and coordinate the right responders.
+                </p>
+
+                <div class="form-section report-form-card" id="reportCard">
+
+                    <div id="reportMessage" class="register-message" role="status" aria-live="polite"></div>
+
+                    <form id="reportForm">
+
+                        <div class="form-grid">
+
+                            <div class="form-group">
+                                <label for="incidentType">Emergency Type</label>
+                                <select id="incidentType" name="incidentType" required>
+                                    <option value="">Select emergency type</option>
+                                    <option value="FIRE">Fire</option>
+                                    <option value="ACCIDENT">Road Accident</option>
+                                    <option value="FLOOD">Flood</option>
+                                    <option value="EARTHQUAKE">Earthquake</option>
+                                    <option value="MEDICAL">Medical Emergency</option>
+                                    <option value="SECURITY">Security / Crime</option>
+                                    <option value="LANDSLIDE">Landslide</option>
+                                    <option value="OTHER">Other</option>
+                                </select>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="priority">Severity Level</label>
+                                <select id="priority" name="priority" required>
+                                    <option value="">Select severity level</option>
+                                    <option value="CRITICAL">Critical</option>
+                                    <option value="HIGH">High</option>
+                                    <option value="MEDIUM">Medium</option>
+                                    <option value="LOW">Low</option>
+                                </select>
+                            </div>
+
+                        </div>
+
+                        <div class="form-group">
+                            <label for="location">Location</label>
+                            <input type="text" id="location" name="location" placeholder="Enter the emergency location or coordinates" required>
+                            <small>You can enter a place name or coordinates such as 9.1450, 40.4897.</small>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="phone">Contact Number</label>
+                            <input type="tel" id="phone" name="phone" placeholder="Enter a number responders can reach" required>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="description">Description</label>
+                            <textarea id="description" name="description" placeholder="Describe what happened, who is affected, and any immediate dangers..." required></textarea>
+                        </div>
+
+                        <div class="form-buttons">
+                            <button type="submit" id="submitReportButton" class="btn-submit">
+                                Submit Emergency Report
+                            </button>
+                            <button type="reset" class="btn-cancel">Clear Form</button>
+                        </div>
+
+                    </form>
+
+                    <div id="reportSuccess" class="report-success-panel" hidden>
+                        <div class="report-success-icon" aria-hidden="true">
+                            <svg viewBox="0 0 24 24" fill="none">
+                                <path d="m5 12.5 4.2 4.2L19 7" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                            </svg>
+                        </div>
+
+                        <h2>Report received</h2>
+                        <p>Your emergency report has been sent to the NEXUS response network.</p>
+                        <p class="report-success-id">Reference: <strong id="reportReference">—</strong></p>
+
+                        <div class="form-buttons report-success-actions">
+                            <a class="btn-submit" href="status.html">Track This Incident</a>
+                            <button class="btn-cancel" type="button" id="newReportButton">File Another Report</button>
+                        </div>
+                    </div>
+
+                </div>
+
+                <div class="notice-card">
+                    <div class="notice-card-icon" aria-hidden="true">
+                        <svg viewBox="0 0 24 24" fill="none">
+                            <path d="M12 3.5 21 20H3L12 3.5Z" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/>
+                            <path d="M12 9v5" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+                            <circle cx="12" cy="17" r="1" fill="currentColor"/>
+                        </svg>
+                    </div>
+
+                    <div>
+                        <h3>Important Notice</h3>
+                        <p>
+                            Only submit genuine emergency reports. False reports may result in penalties.
+                            If you are in immediate danger, contact your local emergency services directly
+                            while submitting this report.
+                        </p>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </main>
+
+
+    <footer class="public-footer">
+        <div class="container">
+            <div class="footer-grid">
+
+                <div class="footer-brand">
+                    <a href="public.html" class="brand footer-brand-link">
+                        <span class="brand-mark" aria-hidden="true">
+                            <svg viewBox="0 0 32 32" fill="none">
+                                <path d="M16 3.5 27 9.8v12.4L16 28.5 5 22.2V9.8L16 3.5Z" stroke="currentColor" stroke-width="1.8"/>
+                                <path d="M16 10v12M11 13.5 21 18.5" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"/>
+                            </svg>
+                        </span>
+                        <span class="brand-copy">
+                            <strong>NEXUS</strong>
+                            <small>Emergency Response Network</small>
+                        </span>
+                    </a>
+
+                    <p>Connecting people, coordinating response, and saving time when it matters most.</p>
+
+                    <div class="footer-emergency">
+                        <span class="emergency-pulse"></span>
+                        For immediate danger, contact local emergency services.
+                    </div>
+                </div>
+
+                <div class="footer-column">
+                    <h4>Platform</h4>
+                    <a href="public.html">Home</a>
+                    <a href="report.html">Report Emergency</a>
+                    <a href="status.html">Track Incident</a>
+                    <a href="map.html">Emergency Map</a>
+                </div>
+
+                <div class="footer-column">
+                    <h4>Network</h4>
+                    <a href="public.html#how-it-works">How NEXUS Works</a>
+                    <a href="public.html#emergencies">Emergency Categories</a>
+                    <a href="public.html#resources">Response Network</a>
+                    <a href="login.html">Operations Login</a>
+                </div>
+
+                <div class="footer-column">
+                    <h4>Account</h4>
+                    <a href="register.html">Create Account</a>
+                    <a href="login.html">Sign In</a>
+                    <a href="status.html">Incident Support</a>
+                    <a href="report.html">Submit a Report</a>
+                </div>
+
+            </div>
+
+            <div class="footer-bottom">
+                <span>© 2026 NEXUS Emergency Response Network</span>
+                <span>Designed for faster emergency response.</span>
+            </div>
+        </div>
+    </footer>
+
+
+    <script src="js/public.js"></script>
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            const form = document.getElementById("reportForm");
+            const message = document.getElementById("reportMessage");
+            const submitButton = document.getElementById("submitReportButton");
+            const successPanel = document.getElementById("reportSuccess");
+            const reportCard = document.getElementById("reportCard");
+            const reference = document.getElementById("reportReference");
+            const newReportButton = document.getElementById("newReportButton");
+
+            if (!form || !message || !submitButton || !successPanel) return;
+
+            const requestedType = new URLSearchParams(window.location.search).get("type");
+            const typeSelect = document.getElementById("incidentType");
+
+            if (requestedType && typeSelect) {
+                const typeMap = {
+                    "FIRE": "FIRE",
+                    "MEDICAL": "MEDICAL",
+                    "FLOOD": "FLOOD",
+                    "ACCIDENT": "ACCIDENT",
+                    "SECURITY": "SECURITY",
+                    "NATURAL DISASTER": "OTHER"
+                };
+
+                const normalizedType =
+                    typeMap[requestedType.trim().toUpperCase()] ||
+                    requestedType.trim().toUpperCase();
+
+                const option = Array.from(typeSelect.options).find(function (item) {
+                    return item.value === normalizedType;
+                });
+
+                if (option) {
+                    typeSelect.value = option.value;
+                }
+            }
+
+            function setMessage(text, type) {
+                message.textContent = text;
+                message.className = "register-message" + (type ? " " + type : "");
+            }
+
+            function resetFormState() {
+                form.reset();
+                form.hidden = false;
+                successPanel.hidden = true;
+                submitButton.disabled = false;
+                submitButton.textContent = "Submit Emergency Report";
+                setMessage("", "");
+            }
+
+            form.addEventListener("submit", async function (event) {
+                event.preventDefault();
+
+                const incidentType = document.getElementById("incidentType").value;
+                const severity = document.getElementById("priority").value;
+                const locationName = document.getElementById("location").value.trim();
+                const phone = document.getElementById("phone").value.trim();
+                const description = document.getElementById("description").value.trim();
+
+                if (!incidentType || !severity || !locationName || !phone || description.length < 5) {
+                    setMessage("Please complete every field and describe the emergency in at least 5 characters.", "error");
+                    return;
+                }
+
+                const token =
+                    localStorage.getItem("nexus_token") ||
+                    sessionStorage.getItem("nexus_token");
+
+                if (!token) {
+                    setMessage("Please sign in before reporting an emergency. Redirecting to login...", "error");
+                    window.setTimeout(function () {
+                        window.location.href = "login.html";
+                    }, 1200);
+                    return;
+                }
+
+                let latitude = null;
+                let longitude = null;
+                let placeName = locationName;
+
+                const coordinateMatch = locationName.match(/^(-?\d+(?:\.\d+)?),\s*(-?\d+(?:\.\d+)?)$/);
+                if (coordinateMatch) {
+                    latitude = parseFloat(coordinateMatch[1]);
+                    longitude = parseFloat(coordinateMatch[2]);
+                    placeName = "Reported coordinates";
+                }
+
+                const typeLabels = {
+                    FIRE: "Fire",
+                    ACCIDENT: "Road Accident",
+                    FLOOD: "Flood",
+                    EARTHQUAKE: "Earthquake",
+                    MEDICAL: "Medical",
+                    SECURITY: "Security",
+                    LANDSLIDE: "Landslide",
+                    OTHER: "Emergency"
+                };
+
+                const payload = {
+                    title: (typeLabels[incidentType] || "Emergency") + " Emergency",
+                    description: description,
+                    incident_type: incidentType,
+                    severity: severity,
+                    latitude: latitude,
+                    longitude: longitude,
+                    location_name: placeName,
+                    contact_phone: phone
+                };
+
+                submitButton.disabled = true;
+                submitButton.textContent = "Sending Emergency Report...";
+                setMessage("", "");
+
+                try {
+                    const response = await fetch("http://localhost:5000/api/incidents", {
+                        method: "POST",
+                        headers: {
+                            "Content-Type": "application/json",
+                            "Authorization": "Bearer " + token
+                        },
+                        body: JSON.stringify(payload)
+                    });
+
+                    const data = await response.json();
+
+                    if (response.status === 401) {
+                        localStorage.removeItem("nexus_token");
+                        localStorage.removeItem("nexus_user");
+                        sessionStorage.removeItem("nexus_token");
+                        sessionStorage.removeItem("nexus_user");
+
+                        setMessage("Your session has expired. Redirecting to login...", "error");
+                        window.setTimeout(function () {
+                            window.location.href = "login.html";
+                        }, 1200);
+                        return;
+                    }
+
+                    if (!response.ok || !data.success) {
+                        throw new Error(data.message || "Unable to submit the emergency report.");
+                    }
+
+                    const incident = data.incident || {};
+                    reference.textContent = "NXS-" + String(incident.id || "").padStart(6, "0");
+
+                    form.hidden = true;
+                    successPanel.hidden = false;
+                    successPanel.scrollIntoView({ behavior: "smooth", block: "center" });
+                } catch (error) {
+                    console.error("Emergency report error:", error);
+                    setMessage(error.message || "Unable to submit the emergency report.", "error");
+                } finally {
+                    submitButton.disabled = false;
+                    submitButton.textContent = "Submit Emergency Report";
+                }
+            });
+
+            if (newReportButton) {
+                newReportButton.addEventListener("click", function () {
+                    resetFormState();
+                    window.scrollTo({ top: 0, behavior: "smooth" });
+                });
+            }
+
+            form.addEventListener("reset", function () {
+                setMessage("", "");
+            });
+        });
+    </script>
+
+</body>
+
+</html>

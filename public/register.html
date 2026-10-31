@@ -1,0 +1,353 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Create Account | NEXUS</title>
+    <link rel="stylesheet" href="css/public.css">
+    <link rel="stylesheet" href="css/portal.css">
+</head>
+
+<body class="auth-page inner-page">
+
+<header class="site-header" id="siteHeader">
+    <div class="container nav-shell">
+
+        <a href="public.html" class="brand" aria-label="NEXUS home">
+            <span class="brand-mark" aria-hidden="true">
+                <svg viewBox="0 0 32 32" fill="none">
+                    <path d="M16 3.5 27 9.8v12.4L16 28.5 5 22.2V9.8L16 3.5Z" stroke="currentColor" stroke-width="1.8"/>
+                    <path d="M16 10v12M11 13.5 21 18.5" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"/>
+                </svg>
+            </span>
+            <span class="brand-copy">
+                <strong>NEXUS</strong>
+                <small>Emergency Response Network</small>
+            </span>
+        </a>
+
+        <nav class="public-nav" id="primaryNav" aria-label="Primary navigation">
+            <a href="public.html">Home</a>
+            <a href="report.html">Report Emergency</a>
+            <a href="status.html">Track Incident</a>
+            <a href="map.html">Emergency Map</a>
+
+            <div id="authNav">
+                <a href="register.html" id="registerNav" class="nav-login active">Register</a>
+                <a href="login.html" id="loginNav">Login</a>
+
+                <button id="profileNav" type="button" style="display: none;">
+                    <span class="nav-profile-dot" aria-hidden="true"></span>
+                    <span id="profileName"></span>
+                </button>
+
+                <button id="logoutNav" type="button" style="display: none;">
+                    Logout
+                </button>
+            </div>
+        </nav>
+
+        <div class="nav-actions">
+            <button class="nav-emergency" type="button" onclick="openReport()">
+                <span class="emergency-pulse" aria-hidden="true"></span>
+                Report Emergency
+            </button>
+
+            <button class="nav-toggle" id="navToggle" type="button" aria-label="Toggle navigation" aria-expanded="false">
+                <span></span><span></span><span></span>
+            </button>
+        </div>
+
+    </div>
+</header>
+
+
+<main class="register-page">
+
+    <div class="register-container">
+
+        <div class="register-card">
+
+            <!-- HEADER -->
+
+            <div class="register-header">
+
+                <div class="register-icon">
+                    ✚
+                </div>
+
+                <h1>Create Your Account</h1>
+
+                <p>
+                    Join NEXUS to report emergencies and track
+                    your incident response.
+                </p>
+
+            </div>
+
+
+            <!-- FORM -->
+
+            <form id="registerForm" novalidate>
+
+                <!-- NAME -->
+
+                <div class="form-group">
+
+                    <label for="fullName">
+                        Full Name
+                    </label>
+
+                    <input
+                        type="text"
+                        id="fullName"
+                        name="fullName"
+                        placeholder="Enter your full name"
+                        autocomplete="name"
+                        required
+                    >
+
+                    <small
+                        class="field-error"
+                        id="fullNameError"
+                    ></small>
+
+                </div>
+
+
+                <!-- EMAIL -->
+
+                <div class="form-group">
+
+                    <label for="email">
+                        Email Address
+                    </label>
+
+                    <input
+                        type="email"
+                        id="email"
+                        name="email"
+                        placeholder="you@example.com"
+                        autocomplete="email"
+                        required
+                    >
+
+                    <small
+                        class="field-error"
+                        id="emailError"
+                    ></small>
+
+                </div>
+
+
+                <!-- PHONE -->
+
+                <div class="form-group">
+
+                    <label for="phone">
+                        Phone Number
+                    </label>
+
+                    <input
+                        type="tel"
+                        id="phone"
+                        name="phone"
+                        placeholder="+251 9XXXXXXXX"
+                        autocomplete="tel"
+                        required
+                    >
+
+                    <small
+                        class="field-error"
+                        id="phoneError"
+                    ></small>
+
+                </div>
+
+
+                <!-- LOCATION -->
+
+                <div class="form-group">
+
+                    <label for="location">
+                        Location
+                    </label>
+
+                    <input
+                        type="text"
+                        id="location"
+                        name="location"
+                        placeholder="City / Region"
+                        autocomplete="address-level2"
+                        required
+                    >
+
+                    <small
+                        class="field-error"
+                        id="locationError"
+                    ></small>
+
+                </div>
+
+
+                <!-- PASSWORD -->
+
+                <div class="form-group">
+
+                    <label for="password">
+                        Password
+                    </label>
+
+                    <div class="password-wrapper">
+
+                        <input
+                            type="password"
+                            id="password"
+                            name="password"
+                            placeholder="Create a strong password"
+                            autocomplete="new-password"
+                            required
+                        >
+
+                        <button
+                            type="button"
+                            class="password-toggle"
+                            id="togglePassword"
+                        >
+                            Show
+                        </button>
+
+                    </div>
+
+
+                    <div class="password-strength">
+
+                        <div
+                            class="strength-bar"
+                            id="strengthBar"
+                        ></div>
+
+                    </div>
+
+                    <small id="strengthText">
+                        At least 8 characters
+                    </small>
+
+                </div>
+
+
+                <!-- CONFIRM PASSWORD -->
+
+                <div class="form-group">
+
+                    <label for="confirmPassword">
+                        Confirm Password
+                    </label>
+
+                    <div class="password-wrapper">
+
+                        <input
+                            type="password"
+                            id="confirmPassword"
+                            name="confirmPassword"
+                            placeholder="Confirm your password"
+                            autocomplete="new-password"
+                            required
+                        >
+
+                        <button
+                            type="button"
+                            class="password-toggle"
+                            id="toggleConfirmPassword"
+                        >
+                            Show
+                        </button>
+
+                    </div>
+
+                    <small
+                        id="passwordMatch"
+                    ></small>
+
+                </div>
+
+
+                <!-- TERMS -->
+
+                <div class="terms">
+
+                    <label>
+
+                        <input
+                            type="checkbox"
+                            id="terms"
+                            required
+                        >
+
+                        <span>
+                            I agree to the
+                            <a href="#">Terms of Service</a>
+                            and
+                            <a href="#">Privacy Policy</a>.
+                        </span>
+
+                    </label>
+
+                </div>
+
+
+                <!-- MESSAGE -->
+
+                <div
+                    id="registerMessage"
+                    class="register-message"
+                ></div>
+
+
+                <!-- SUBMIT -->
+
+                <button
+                    type="submit"
+                    id="registerButton"
+                    class="btn-submit"
+                >
+                    Create Account
+                </button>
+
+
+                <!-- LOGIN -->
+
+                <p class="login-link">
+
+                    Already have an account?
+
+                    <a href="login.html">
+                        Sign in
+                    </a>
+
+                </p>
+
+            </form>
+
+        </div>
+
+    </div>
+
+</main>
+
+
+<footer class="public-footer">
+    <div class="container">
+        <div class="footer-bottom">
+            <span>© 2026 NEXUS Emergency Response Network</span>
+            <span>Designed for faster emergency response.</span>
+        </div>
+    </div>
+</footer>
+
+
+<script src="js/public.js"></script>
+<script src="js/register.js"></script>
+</body>
+</html>

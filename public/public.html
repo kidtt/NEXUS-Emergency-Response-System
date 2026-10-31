@@ -1,0 +1,878 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>NEXUS | Emergency Response Network</title>
+    <meta name="description" content="NEXUS is a connected emergency response network for reporting incidents, coordinating responders, and delivering help when every second matters.">
+
+    <link rel="stylesheet" href="css/public.css">
+    <link rel="stylesheet" href="css/portal.css">
+</head>
+
+<body class="public-portal">
+
+    <!-- =====================================================
+         NAVIGATION
+    ====================================================== -->
+
+    <header class="site-header" id="siteHeader">
+        <div class="container nav-shell">
+
+            <a href="public.html" class="brand" aria-label="NEXUS home">
+                <span class="brand-mark" aria-hidden="true">
+                    <svg viewBox="0 0 32 32" fill="none">
+                        <path d="M16 3.5 27 9.8v12.4L16 28.5 5 22.2V9.8L16 3.5Z" stroke="currentColor" stroke-width="1.8"/>
+                        <path d="M16 10v12M11 13.5 21 18.5" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"/>
+                    </svg>
+                </span>
+                <span class="brand-copy">
+                    <strong>NEXUS</strong>
+                    <small>Emergency Response Network</small>
+                </span>
+            </a>
+
+            <nav class="public-nav" id="primaryNav" aria-label="Primary navigation">
+                <a href="public.html" class="active">Home</a>
+                <a href="report.html">Report Emergency</a>
+                <a href="status.html">Track Incident</a>
+                <a href="map.html">Emergency Map</a>
+
+                <div id="authNav">
+                    <a href="register.html" id="registerNav">Register</a>
+                    <a href="login.html" class="nav-login" id="loginNav">Login</a>
+
+                    <button id="profileNav" type="button" style="display: none;">
+                        <span class="nav-profile-dot" aria-hidden="true"></span>
+                        <span id="profileName"></span>
+                    </button>
+
+                    <button id="logoutNav" type="button" style="display: none;">
+                        Logout
+                    </button>
+                </div>
+            </nav>
+
+            <div class="nav-actions">
+                <button class="nav-emergency" type="button" onclick="openReport()">
+                    <span class="emergency-pulse" aria-hidden="true"></span>
+                    Report Emergency
+                </button>
+
+                <button class="nav-toggle" id="navToggle" type="button" aria-label="Toggle navigation" aria-expanded="false">
+                    <span></span><span></span><span></span>
+                </button>
+            </div>
+
+        </div>
+    </header>
+
+
+    <main>
+
+        <!-- =====================================================
+             HERO
+        ====================================================== -->
+
+        <section class="hero" id="home">
+
+            <div class="hero-glow hero-glow-one" aria-hidden="true"></div>
+            <div class="hero-glow hero-glow-two" aria-hidden="true"></div>
+            <div class="hero-grid" aria-hidden="true"></div>
+
+            <div class="container hero-inner">
+
+                <div class="hero-content">
+
+                    <div class="hero-status">
+                        <span class="status-pulse"></span>
+                        NEXUS Response Network
+                        <span class="status-divider"></span>
+                        Operational
+                    </div>
+
+                    <h1>
+                        When Every Second<br>
+                        <span>Matters.</span>
+                    </h1>
+
+                    <p class="hero-lead">
+                        A connected emergency response network built to help
+                        people report incidents, coordinate responders, and
+                        deliver help where it is needed most.
+                    </p>
+
+                    <div class="hero-actions">
+                        <button class="hero-primary" type="button" onclick="openReport()">
+                            <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
+                                <path d="M12 3.5 21 20H3L12 3.5Z" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/>
+                                <path d="M12 9v5" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+                                <circle cx="12" cy="17" r="1" fill="currentColor"/>
+                            </svg>
+                            Report an Emergency
+                        </button>
+
+                        <a href="#how-it-works" class="hero-secondary">
+                            Explore NEXUS
+                            <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
+                                <path d="M5 12h14M13 6l6 6-6 6" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
+                            </svg>
+                        </a>
+                    </div>
+
+                    <div class="hero-trust">
+                        <div>
+                            <strong>24/7</strong>
+                            <span>Response Network</span>
+                        </div>
+                        <div>
+                            <strong>REAL-TIME</strong>
+                            <span>Incident Coordination</span>
+                        </div>
+                        <div>
+                            <strong>AI</strong>
+                            <span>Assisted Intelligence</span>
+                        </div>
+                    </div>
+
+                </div>
+
+
+                <div class="hero-visual" aria-hidden="true">
+
+                    <div class="hero-orbit orbit-one"></div>
+                    <div class="hero-orbit orbit-two"></div>
+                    <div class="hero-orbit orbit-three"></div>
+
+                    <div class="hero-core">
+                        <div class="hero-core-ring"></div>
+                        <svg viewBox="0 0 32 32" fill="none">
+                            <path d="M16 3.5 27 9.8v12.4L16 28.5 5 22.2V9.8L16 3.5Z" stroke="currentColor" stroke-width="1.6"/>
+                            <path d="M16 10v12M11 13.5 21 18.5" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+                        </svg>
+                        <strong>NEXUS</strong>
+                        <small>LIVE NETWORK</small>
+                    </div>
+
+                    <div class="hero-node node-report">
+                        <span class="node-dot"></span>
+                        Report
+                    </div>
+                    <div class="hero-node node-assess">
+                        <span class="node-dot"></span>
+                        Assess
+                    </div>
+                    <div class="hero-node node-dispatch">
+                        <span class="node-dot"></span>
+                        Dispatch
+                    </div>
+                    <div class="hero-node node-respond">
+                        <span class="node-dot"></span>
+                        Respond
+                    </div>
+
+                    <div class="hero-beam beam-one"></div>
+                    <div class="hero-beam beam-two"></div>
+                    <div class="hero-beam beam-three"></div>
+                    <div class="hero-beam beam-four"></div>
+
+                </div>
+
+            </div>
+
+            <div class="container hero-footer">
+                <div class="hero-scroll">
+                    <span>SCROLL TO EXPLORE</span>
+                    <div class="scroll-line"></div>
+                </div>
+                <p class="hero-note">
+                    Built for citizens, responders, and emergency operations teams.
+                </p>
+            </div>
+
+        </section>
+
+
+        <!-- =====================================================
+             MISSION
+        ====================================================== -->
+
+        <section class="mission section">
+            <div class="container">
+
+                <div class="section-label">
+                    <span></span>
+                    The NEXUS Mission
+                </div>
+
+                <div class="mission-grid">
+
+                    <div class="mission-title">
+                        <h2>
+                            One network.<br>
+                            <span>Every response.</span>
+                        </h2>
+                    </div>
+
+                    <div class="mission-text">
+                        <p>
+                            Emergencies do not wait for perfect conditions.
+                            NEXUS brings reporting, intelligence, coordination,
+                            and response together in one connected platform.
+                        </p>
+                        <p>
+                            From the first emergency report to the arrival of a
+                            response team, every critical moment can be tracked
+                            and coordinated through a single system.
+                        </p>
+
+                        <div class="mission-pillars">
+                            <div>
+                                <strong>Report</strong>
+                                <span>Fast, structured intake</span>
+                            </div>
+                            <div>
+                                <strong>Coordinate</strong>
+                                <span>Teams, resources, operations</span>
+                            </div>
+                            <div>
+                                <strong>Respond</strong>
+                                <span>Live status and updates</span>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </section>
+
+
+        <!-- =====================================================
+             EMERGENCY CATEGORIES
+        ====================================================== -->
+
+        <section class="emergency-types section" id="emergencies">
+            <div class="container">
+
+                <div class="section-heading">
+                    <div>
+                        <div class="section-label">
+                            <span></span>
+                            Emergency Categories
+                        </div>
+                        <h2>
+                            Help starts with<br>
+                            <em>one report.</em>
+                        </h2>
+                    </div>
+                    <p>
+                        Choose the type of emergency and share the information
+                        responders need to understand the situation quickly.
+                    </p>
+                </div>
+
+                <div class="emergency-grid">
+
+                    <button class="emergency-card fire" type="button" onclick="openReport('Fire')">
+                        <span class="emergency-symbol">
+                            <svg viewBox="0 0 32 32" fill="none">
+                                <path d="M16 4c2.8 5 7 7.8 7 13a7 7 0 0 1-14 0c0-3.2 2.1-5.8 4.2-8.1.5 2.4 1.8 3.4 2.8 3.9.8-3.1.7-6 0-8.8Z" stroke="currentColor" stroke-width="1.7" stroke-linejoin="round"/>
+                                <path d="M16 20.5c-1.8-2.2-.4-4.2 1.2-5.5.5 1.7 2.3 2.8 2.3 4.7a3.5 3.5 0 0 1-7 0c0-1.2.5-2.2 1.2-3.1" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/>
+                            </svg>
+                        </span>
+                        <span class="emergency-copy">
+                            <strong>Fire</strong>
+                            <small>Fire and rescue response</small>
+                        </span>
+                        <span class="emergency-arrow">→</span>
+                    </button>
+
+                    <button class="emergency-card medical" type="button" onclick="openReport('Medical')">
+                        <span class="emergency-symbol">
+                            <svg viewBox="0 0 32 32" fill="none">
+                                <path d="M12 7h8v5h5v8h-5v5h-8v-5H7v-8h5V7Z" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/>
+                            </svg>
+                        </span>
+                        <span class="emergency-copy">
+                            <strong>Medical</strong>
+                            <small>Medical emergency support</small>
+                        </span>
+                        <span class="emergency-arrow">→</span>
+                    </button>
+
+                    <button class="emergency-card flood" type="button" onclick="openReport('Flood')">
+                        <span class="emergency-symbol">
+                            <svg viewBox="0 0 32 32" fill="none">
+                                <path d="M5 12c2.5 0 2.5 2 5 2s2.5-2 5-2 2.5 2 5 2 2.5-2 5-2M5 18c2.5 0 2.5 2 5 2s2.5-2 5-2 2.5 2 5 2 2.5-2 5-2M5 24c2.5 0 2.5 2 5 2s2.5-2 5-2 2.5 2 5 2 2.5-2 5-2" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/>
+                            </svg>
+                        </span>
+                        <span class="emergency-copy">
+                            <strong>Flood</strong>
+                            <small>Flood and water rescue</small>
+                        </span>
+                        <span class="emergency-arrow">→</span>
+                    </button>
+
+                    <button class="emergency-card accident" type="button" onclick="openReport('Accident')">
+                        <span class="emergency-symbol">
+                            <svg viewBox="0 0 32 32" fill="none">
+                                <path d="M8 21h16M10 21V13l3-5h6l3 5v8" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
+                                <circle cx="11" cy="23" r="2" stroke="currentColor" stroke-width="1.8"/>
+                                <circle cx="21" cy="23" r="2" stroke="currentColor" stroke-width="1.8"/>
+                                <path d="M13 12h6" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/>
+                            </svg>
+                        </span>
+                        <span class="emergency-copy">
+                            <strong>Accident</strong>
+                            <small>Road and transport incidents</small>
+                        </span>
+                        <span class="emergency-arrow">→</span>
+                    </button>
+
+                    <button class="emergency-card security" type="button" onclick="openReport('Security')">
+                        <span class="emergency-symbol">
+                            <svg viewBox="0 0 32 32" fill="none">
+                                <path d="M16 4 26 8v7c0 6.2-4 10.2-10 13-6-2.8-10-6.8-10-13V8l10-4Z" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/>
+                                <path d="m12 16 2.5 2.5L20.5 12" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"/>
+                            </svg>
+                        </span>
+                        <span class="emergency-copy">
+                            <strong>Security</strong>
+                            <small>Security and public safety</small>
+                        </span>
+                        <span class="emergency-arrow">→</span>
+                    </button>
+
+                    <button class="emergency-card disaster" type="button" onclick="openReport('Natural Disaster')">
+                        <span class="emergency-symbol">
+                            <svg viewBox="0 0 32 32" fill="none">
+                                <path d="M4 25h24M8 20l4-7 3 3 5-8 4 12" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
+                                <circle cx="25" cy="8" r="3" stroke="currentColor" stroke-width="1.6"/>
+                            </svg>
+                        </span>
+                        <span class="emergency-copy">
+                            <strong>Natural Disaster</strong>
+                            <small>Earthquake and disaster response</small>
+                        </span>
+                        <span class="emergency-arrow">→</span>
+                    </button>
+
+                </div>
+            </div>
+        </section>
+
+
+        <!-- =====================================================
+             HOW IT WORKS
+        ====================================================== -->
+
+        <section class="how-it-works section" id="how-it-works">
+            <div class="container">
+
+                <div class="section-heading section-heading-dark">
+                    <div>
+                        <div class="section-label">
+                            <span></span>
+                            How NEXUS Works
+                        </div>
+                        <h2>
+                            From emergency<br>
+                            <em>to response.</em>
+                        </h2>
+                    </div>
+                    <p>
+                        A clear operational flow keeps every report moving toward
+                        the right people, with the right information, at the right time.
+                    </p>
+                </div>
+
+                <div class="response-flow">
+
+                    <div class="flow-step">
+                        <div class="flow-number">01</div>
+                        <div class="flow-icon">
+                            <svg viewBox="0 0 32 32" fill="none">
+                                <rect x="9" y="5" width="14" height="22" rx="3" stroke="currentColor" stroke-width="1.8"/>
+                                <path d="M13 11h6M13 15h6M13 19h4" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"/>
+                            </svg>
+                        </div>
+                        <h3>Report</h3>
+                        <p>A citizen reports the emergency and shares the location and situation.</p>
+                    </div>
+
+                    <div class="flow-step">
+                        <div class="flow-number">02</div>
+                        <div class="flow-icon">
+                            <svg viewBox="0 0 32 32" fill="none">
+                                <circle cx="16" cy="16" r="10" stroke="currentColor" stroke-width="1.8"/>
+                                <path d="M16 10v6l4 3" stroke="currentColor" stroke-width="1.9" stroke-linecap="round"/>
+                            </svg>
+                        </div>
+                        <h3>Assess</h3>
+                        <p>NEXUS intelligence analyzes severity, risk, and response priorities.</p>
+                    </div>
+
+                    <div class="flow-step">
+                        <div class="flow-number">03</div>
+                        <div class="flow-icon">
+                            <svg viewBox="0 0 32 32" fill="none">
+                                <circle cx="10" cy="11" r="3.5" stroke="currentColor" stroke-width="1.7"/>
+                                <circle cx="22" cy="11" r="3.5" stroke="currentColor" stroke-width="1.7"/>
+                                <path d="M4 25c0-3.3 2.7-6 6-6s6 2.7 6 6M16 25c0-3.3 2.7-6 6-6s6 2.7 6 6" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"/>
+                            </svg>
+                        </div>
+                        <h3>Coordinate</h3>
+                        <p>Responders, resources, and operations are organized around the incident.</p>
+                    </div>
+
+                    <div class="flow-step">
+                        <div class="flow-number">04</div>
+                        <div class="flow-icon">
+                            <svg viewBox="0 0 32 32" fill="none">
+                                <path d="m8 16 5 5 11-12" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                            </svg>
+                        </div>
+                        <h3>Respond</h3>
+                        <p>Teams act, update the incident status, and close the response loop.</p>
+                    </div>
+
+                </div>
+            </div>
+        </section>
+
+
+        <!-- =====================================================
+             CAPABILITIES
+        ====================================================== -->
+
+        <section class="capabilities section">
+            <div class="container">
+
+                <div class="section-heading">
+                    <div>
+                        <div class="section-label">
+                            <span></span>
+                            Response Intelligence
+                        </div>
+                        <h2>
+                            Built for the moments<br>
+                            <em>that matter most.</em>
+                        </h2>
+                    </div>
+                    <p>
+                        NEXUS combines real-time reporting, intelligent coordination,
+                        and emergency response into one connected ecosystem.
+                    </p>
+                </div>
+
+                <div class="capability-grid">
+
+                    <article class="capability-card blue-card">
+                        <div class="capability-number">01</div>
+                        <div class="capability-icon">
+                            <svg viewBox="0 0 32 32" fill="none">
+                                <circle cx="16" cy="16" r="10" stroke="currentColor" stroke-width="1.8"/>
+                                <path d="M16 11v5l3 2" stroke="currentColor" stroke-width="1.9" stroke-linecap="round"/>
+                            </svg>
+                        </div>
+                        <h3>Real-Time Reporting</h3>
+                        <p>
+                            Citizens can quickly report emergencies and provide the
+                            information responders need to act.
+                        </p>
+                        <span class="card-link">FAST REPORTING <b>→</b></span>
+                    </article>
+
+                    <article class="capability-card red-card">
+                        <div class="capability-number">02</div>
+                        <div class="capability-icon">
+                            <svg viewBox="0 0 32 32" fill="none">
+                                <circle cx="16" cy="16" r="9.5" stroke="currentColor" stroke-width="1.8"/>
+                                <circle cx="16" cy="16" r="4" stroke="currentColor" stroke-width="1.8"/>
+                                <path d="M16 3v4M16 25v4M3 16h4M25 16h4" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/>
+                            </svg>
+                        </div>
+                        <h3>Emergency Coordination</h3>
+                        <p>
+                            Incidents are organized and coordinated so the right
+                            response teams can be mobilized efficiently.
+                        </p>
+                        <span class="card-link">COORDINATED RESPONSE <b>→</b></span>
+                    </article>
+
+                    <article class="capability-card purple-card">
+                        <div class="capability-number">03</div>
+                        <div class="capability-icon">
+                            <svg viewBox="0 0 32 32" fill="none">
+                                <path d="M16 4c.8 5.2 2.8 7.2 8 8-5.2.8-7.2 2.8-8 8-.8-5.2-2.8-7.2-8-8 5.2-.8 7.2-2.8 8-8Z" stroke="currentColor" stroke-width="1.7" stroke-linejoin="round"/>
+                                <path d="M24.5 20c.3 2.2 1.2 3.1 3.5 3.5-2.3.4-3.2 1.3-3.5 3.5-.3-2.2-1.2-3.1-3.5-3.5 2.3-.4 3.2-1.3 3.5-3.5Z" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"/>
+                            </svg>
+                        </div>
+                        <h3>AI-Assisted Intelligence</h3>
+                        <p>
+                            Intelligent analysis helps identify patterns, prioritize
+                            incidents, and support emergency decisions.
+                        </p>
+                        <span class="card-link">INTELLIGENT RESPONSE <b>→</b></span>
+                    </article>
+
+                    <article class="capability-card green-card">
+                        <div class="capability-number">04</div>
+                        <div class="capability-icon">
+                            <svg viewBox="0 0 32 32" fill="none">
+                                <circle cx="16" cy="8" r="3.5" stroke="currentColor" stroke-width="1.7"/>
+                                <circle cx="8" cy="22" r="3.5" stroke="currentColor" stroke-width="1.7"/>
+                                <circle cx="24" cy="22" r="3.5" stroke="currentColor" stroke-width="1.7"/>
+                                <path d="M16 11.5v4m0 0-6 3.5m6-3.5 6 3.5" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"/>
+                            </svg>
+                        </div>
+                        <h3>Connected Response Teams</h3>
+                        <p>
+                            Emergency teams receive assignments, update their status,
+                            and coordinate operations in real time.
+                        </p>
+                        <span class="card-link">CONNECTED TEAMS <b>→</b></span>
+                    </article>
+
+                </div>
+            </div>
+        </section>
+
+
+        <!-- =====================================================
+             RESPONSE NETWORK
+        ====================================================== -->
+
+        <section class="live-section section">
+            <div class="container live-grid">
+
+                <div class="live-content">
+                    <div class="section-label">
+                        <span></span>
+                        Response Network
+                    </div>
+
+                    <h2>
+                        See the response<br>
+                        <span>in motion.</span>
+                    </h2>
+
+                    <p>
+                        NEXUS gives emergency authorities an operational view of
+                        incidents, teams, and resources as a response unfolds.
+                        Citizens can follow progress without losing sight of
+                        what happens next.
+                    </p>
+
+                    <ul class="live-list">
+                        <li><span class="live-check">✓</span> Live incident intake and status tracking</li>
+                        <li><span class="live-check">✓</span> Team availability and assignment visibility</li>
+                        <li><span class="live-check">✓</span> Resource stock and deployment monitoring</li>
+                        <li><span class="live-check">✓</span> Operational analytics for faster decisions</li>
+                    </ul>
+
+                    <a href="map.html" class="outline-btn">
+                        Open Emergency Map
+                        <span>→</span>
+                    </a>
+                </div>
+
+                <div class="live-map" aria-hidden="true">
+                    <div class="map-grid"></div>
+
+                    <div class="map-ring ring-one"></div>
+                    <div class="map-ring ring-two"></div>
+
+                    <div class="map-center-point">
+                        <span></span>
+                        NEXUS
+                    </div>
+
+                    <div class="map-point point-one">!</div>
+                    <div class="map-point point-two">!</div>
+                    <div class="map-point point-three">!</div>
+                    <div class="map-point point-four">!</div>
+
+                    <div class="map-label label-one">ACTIVE INCIDENT</div>
+                    <div class="map-label label-two">RESPONSE TEAM</div>
+                    <div class="map-label label-three">RESOURCE NODE</div>
+                </div>
+
+            </div>
+        </section>
+
+
+        <!-- =====================================================
+             FINAL CTA
+        ====================================================== -->
+
+        <section class="final-cta" id="resources">
+            <div class="cta-glow" aria-hidden="true"></div>
+            <div class="container cta-content">
+                <div class="section-label">
+                    <span></span>
+                    Your Action Matters
+                </div>
+
+                <h2>
+                    Every second matters.<br>
+                    <span>Your report could save a life.</span>
+                </h2>
+
+                <p>
+                    If you see an emergency, do not wait. Report it and help
+                    connect the situation to the people who can respond.
+                </p>
+
+                <button class="cta-button" type="button" onclick="openReport()">
+                    <span class="emergency-pulse" aria-hidden="true"></span>
+                    Report an Emergency
+                </button>
+            </div>
+        </section>
+
+    </main>
+
+
+    <!-- =====================================================
+         FOOTER
+    ====================================================== -->
+
+    <footer class="public-footer">
+        <div class="container">
+
+            <div class="footer-grid">
+
+                <div class="footer-brand">
+                    <a href="public.html" class="brand footer-brand-link">
+                        <span class="brand-mark" aria-hidden="true">
+                            <svg viewBox="0 0 32 32" fill="none">
+                                <path d="M16 3.5 27 9.8v12.4L16 28.5 5 22.2V9.8L16 3.5Z" stroke="currentColor" stroke-width="1.8"/>
+                                <path d="M16 10v12M11 13.5 21 18.5" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"/>
+                            </svg>
+                        </span>
+                        <span class="brand-copy">
+                            <strong>NEXUS</strong>
+                            <small>Emergency Response Network</small>
+                        </span>
+                    </a>
+
+                    <p>
+                        Connecting people, coordinating response, and saving time
+                        when it matters most.
+                    </p>
+
+                    <div class="footer-emergency">
+                        <span class="emergency-pulse"></span>
+                        For immediate danger, contact local emergency services.
+                    </div>
+                </div>
+
+                <div class="footer-column">
+                    <h4>Platform</h4>
+                    <a href="public.html">Home</a>
+                    <a href="report.html">Report Emergency</a>
+                    <a href="status.html">Track Incident</a>
+                    <a href="map.html">Emergency Map</a>
+                </div>
+
+                <div class="footer-column">
+                    <h4>Network</h4>
+                    <a href="#how-it-works">How NEXUS Works</a>
+                    <a href="#emergencies">Emergency Categories</a>
+                    <a href="#resources">Response Network</a>
+                    <a href="login.html">Operations Login</a>
+                </div>
+
+                <div class="footer-column">
+                    <h4>Account</h4>
+                    <a href="register.html">Create Account</a>
+                    <a href="login.html">Sign In</a>
+                    <a href="status.html">Incident Support</a>
+                    <a href="report.html">Submit a Report</a>
+                </div>
+
+            </div>
+
+            <div class="footer-bottom">
+                <span>© 2026 NEXUS Emergency Response Network</span>
+                <span>Designed for faster emergency response.</span>
+            </div>
+
+        </div>
+    </footer>
+
+
+    <!-- =====================================================
+         EMERGENCY REPORT MODAL
+    ====================================================== -->
+
+    <div class="report-overlay" id="reportOverlay">
+
+        <div class="report-modal" role="dialog" aria-modal="true" aria-labelledby="reportModalTitle">
+
+            <button class="close-report" type="button" onclick="closeReport()" aria-label="Close report dialog">
+                ×
+            </button>
+
+            <div class="report-header">
+                <div class="report-icon">
+                    <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
+                        <path d="M12 3.5 21 20H3L12 3.5Z" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/>
+                        <path d="M12 9v5" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+                        <circle cx="12" cy="17" r="1" fill="currentColor"/>
+                    </svg>
+                </div>
+
+                <div>
+                    <span>EMERGENCY REPORT</span>
+                    <h2 id="reportModalTitle">Tell us what happened.</h2>
+                </div>
+            </div>
+
+            <form id="emergencyForm">
+
+                <div class="form-group">
+                    <label>Emergency Type</label>
+
+                    <div class="type-selector">
+                        <button type="button" data-type="Fire">Fire</button>
+                        <button type="button" data-type="Medical">Medical</button>
+                        <button type="button" data-type="Flood">Flood</button>
+                        <button type="button" data-type="Accident">Accident</button>
+                        <button type="button" data-type="Security">Security</button>
+                        <button type="button" data-type="Natural Disaster">Natural Disaster</button>
+                    </div>
+
+                    <input type="hidden" id="emergencyType" name="type">
+                </div>
+
+                <div class="form-group">
+                    <label for="location">Emergency Location</label>
+
+                    <div class="location-input">
+                        <input
+                            type="text"
+                            id="location"
+                            name="location"
+                            placeholder="Enter a landmark, address, or use your location"
+                            required
+                        >
+
+                        <button type="button" id="locationBtn">
+                            Use my location
+                        </button>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label for="description">What is happening?</label>
+                    <textarea
+                        id="description"
+                        name="description"
+                        rows="4"
+                        placeholder="Briefly describe the emergency..."
+                        required></textarea>
+                </div>
+
+                <div class="form-group">
+                    <label for="phone">
+                        Contact Number
+                        <span>(optional)</span>
+                    </label>
+
+                    <input
+                        type="tel"
+                        id="phone"
+                        name="phone"
+                        placeholder="09XXXXXXXX"
+                    >
+                </div>
+
+                <div class="report-warning">
+                    <strong>Only report real emergencies.</strong>
+                    <span>
+                        False reports can delay help for people who genuinely need it.
+                    </span>
+                </div>
+
+                <button type="submit" class="submit-report">
+                    SEND EMERGENCY REPORT
+                    <span>→</span>
+                </button>
+
+            </form>
+
+        </div>
+    </div>
+
+
+    <!-- =====================================================
+         CITIZEN PROFILE MODAL
+    ====================================================== -->
+
+    <div id="profileModal" class="profile-modal">
+        <div class="profile-card">
+            <button id="closeProfileModal" class="profile-close" type="button" aria-label="Close profile">
+                ×
+            </button>
+
+            <div class="profile-avatar">
+                <svg viewBox="0 0 32 32" fill="none" aria-hidden="true">
+                    <circle cx="16" cy="12" r="5" stroke="currentColor" stroke-width="1.8"/>
+                    <path d="M6 27c0-5 4.5-8 10-8s10 3 10 8" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/>
+                </svg>
+            </div>
+
+            <h2 id="profileModalName">Citizen</h2>
+            <p id="profileModalRole">CITIZEN</p>
+
+            <div class="profile-details">
+                <div>
+                    <span>Email</span>
+                    <strong id="profileModalEmail">—</strong>
+                </div>
+                <div>
+                    <span>Phone</span>
+                    <strong id="profileModalPhone">—</strong>
+                </div>
+                <div>
+                    <span>Role</span>
+                    <strong id="profileModalRoleDetail">CITIZEN</strong>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <script src="js/public.js"></script>
+
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+
+            const header = document.getElementById("siteHeader");
+            const navToggle = document.getElementById("navToggle");
+            const primaryNav = document.getElementById("primaryNav");
+
+            if (navToggle && primaryNav) {
+                navToggle.addEventListener("click", function () {
+                    const isOpen = primaryNav.classList.toggle("open");
+                    navToggle.classList.toggle("open", isOpen);
+                    navToggle.setAttribute("aria-expanded", String(isOpen));
+                });
+            }
+
+            if (header) {
+                const onScroll = function () {
+                    header.classList.toggle("scrolled", window.scrollY > 24);
+                };
+                onScroll();
+                window.addEventListener("scroll", onScroll, { passive: true });
+            }
+        });
+    </script>
+
+</body>
+</html>
